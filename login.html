@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            background: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login Form</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+            var userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.username === username && userData.password === password) {
+                alert("Login successful");
+            } else {
+                alert("Invalid username or password");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            background: #007bff;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" required>
+
+            <label for="phone">Phone:</label>
+            <div style="display: flex;">
+                <select id="countryCode" style="width: 30%;">
+                    <option value="+1">+1</option>
+                    <option value="+44">+44</option>
+                    <option value="+91">+91</option>
+                </select>
+                <input type="tel" id="phone" style="width: 70%;" required>
+            </div>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+            var email = document.getElementById('email').value;
+            var fullname = document.getElementById('fullname').value;
+            var address = document.getElementById('address').value;
+            var phone = document.getElementById('phone').value;
+            var dob = document.getElementById('dob').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            var passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Password must contain at least one uppercase letter and one number, and be at least 8 characters long");
+                return;
+            }
+
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Phone number must be 10 digits");
+                return;
+            }
+
+            
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var month = today.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 13) {
+                alert("You must be at least 13 years old to register");
+                return;
+            }
+
+            alert("Registration successful");
+        });
+    </script>
+</body>
+</html>
